@@ -10,6 +10,8 @@ use JoeDixon\Translation\Console\Commands\ListLanguagesCommand;
 use JoeDixon\Translation\Console\Commands\ListMissingTranslationKeys;
 use JoeDixon\Translation\Console\Commands\SynchroniseMissingTranslationKeys;
 use JoeDixon\Translation\Console\Commands\SynchroniseTranslationsCommand;
+use JoeDixon\Translation\Drivers\Database;
+use JoeDixon\Translation\Drivers\File;
 use JoeDixon\Translation\Drivers\Translation;
 
 class TranslationServiceProvider extends ServiceProvider
@@ -180,6 +182,17 @@ class TranslationServiceProvider extends ServiceProvider
 
         $this->app->singleton(Translation::class, function ($app) {
             return (new TranslationManager($app, $app['config']['translation'], $app->make(Scanner::class)))->resolve();
+        });
+
+        $this->app->singleton(File::class, function ($app) {
+            $scanner = $app->make(Scanner::class);
+            $languageFilesPath = $app->config['app']['locale'];
+
+            return new File(new Filesystem(), $app['path.lang'], $languageFilesPath, $scanner);
+        });
+
+        $this->app->singleton(Database::class, function ($app) {
+            return new Database($app->config['app']['locale'], $app->make(Scanner::class));
         });
     }
 }
