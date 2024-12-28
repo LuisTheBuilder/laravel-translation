@@ -58,6 +58,11 @@ return [
     */
     'ui_url' => 'languages',
 
+    'controllers' => [
+        'language' => \JoeDixon\Translation\Http\Controllers\LanguageController::class,
+        'languageTranslation' => \JoeDixon\Translation\Http\Controllers\LanguageTranslationController::class,
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Database settings
