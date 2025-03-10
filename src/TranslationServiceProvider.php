@@ -131,10 +131,10 @@ class TranslationServiceProvider extends ServiceProvider
      */
     private function loadTranslations()
     {
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'translation');
+        $this->loadTranslationsFrom(__DIR__.'/../lang', 'translation');
 
         $this->publishes([
-            __DIR__.'/../resources/lang' => resource_path('lang/vendor/translation'),
+            __DIR__.'/../lang' => app_path('lang/vendor/translation'),
         ]);
     }
 
