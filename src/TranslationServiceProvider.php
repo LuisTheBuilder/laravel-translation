@@ -188,7 +188,7 @@ class TranslationServiceProvider extends ServiceProvider
             $scanner = $app->make(Scanner::class);
             $languageFilesPath = $app->config['app']['locale'];
 
-            return new File(new Filesystem(), $app['path.lang'], $languageFilesPath, $scanner);
+            return new File(new Filesystem(), $app->config['translation.path'], $languageFilesPath, $scanner);
         });
 
         $this->app->singleton(Database::class, function ($app) {
